@@ -8,16 +8,18 @@ import {
   MessageCircle,
   Building2,
 } from "lucide-react";
-import { Suspense, useEffect, useState } from "react";
-import { useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
 import { format } from "date-fns";
 
-function TransactionContent() {
-  const searchParams = useSearchParams();
-  const username = searchParams.get("username") as string;
-  const description = searchParams.get("description");
-  const price = searchParams.get("price");
-
+export default function Transaction({
+  username,
+  description,
+  price,
+}: {
+  username: string;
+  description: string;
+  price: string;
+}) {
   const [name, setName] = useState("");
   const [avatarURL, setAvatarURL] = useState("");
 
@@ -137,13 +139,3 @@ function TransactionContent() {
     </div>
   );
 }
-
-export default function Transaction() {
-  return (
-    <Suspense>
-      <TransactionContent />
-    </Suspense>
-  );
-}
-
-export const dynamic = "force-dynamic";
