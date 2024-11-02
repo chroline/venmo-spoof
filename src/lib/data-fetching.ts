@@ -12,7 +12,6 @@ export async function fetchHtml(url: string) {
 
     return await response.text();
   } catch (error) {
-    console.error("An error occurred:", error);
     return null;
   }
 }

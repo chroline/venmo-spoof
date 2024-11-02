@@ -18,8 +18,6 @@ export async function GET(request: Request) {
       { status: 500 }
     );
 
-  console.log(htmlText);
-
   const $ = cheerio.load(htmlText);
   const name = $("p[class^='profileInfo_username']").first().text() || null;
 

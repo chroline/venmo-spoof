@@ -8,13 +8,13 @@ import {
   MessageCircle,
   Building2,
 } from "lucide-react";
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { format } from "date-fns";
 
-export default function Transaction() {
+function TransactionContent() {
   const searchParams = useSearchParams();
-  const username = searchParams.get("username");
+  const username = searchParams.get("username") as string;
   const description = searchParams.get("description");
   const price = searchParams.get("price");
 
@@ -22,8 +22,8 @@ export default function Transaction() {
   const [avatarURL, setAvatarURL] = useState("");
 
   useEffect(() => {
-    getName(username).then((v) => setName(v));
-    getAvatarURL(username).then((v) => setAvatarURL(v));
+    getName(username).then((v: string) => setName(v));
+    getAvatarURL(username).then((v: string) => setAvatarURL(v));
   }, [username]);
 
   const currentDate = format(new Date(), "MMMM dd, yyyy, h:mm a");
@@ -137,3 +137,13 @@ export default function Transaction() {
     </div>
   );
 }
+
+export default function Transaction() {
+  return (
+    <Suspense>
+      <TransactionContent />
+    </Suspense>
+  );
+}
+
+export const dynamic = "force-dynamic";

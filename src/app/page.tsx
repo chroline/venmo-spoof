@@ -14,17 +14,15 @@ export default function Home() {
     description: "",
     price: "",
   });
-  const [error, setError] = useState("");
-  const [success, setSuccess] = useState(false);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: any) => {
     e.preventDefault();
 
     const params = new URLSearchParams(formData);
     router.push(`/transaction?${params.toString()}`);
   };
 
-  const handleChange = (e) => {
+  const handleChange = (e: any) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
@@ -34,7 +32,7 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-white flex flex-col">
       {/* Header */}
-      <header className="px-6 py-4 text-center">
+      <header className="px-6 pt-8 pb-4 text-center">
         <h1 className="text-2xl font-medium tracking-tight">Venmo Spoofer</h1>
       </header>
 
