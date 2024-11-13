@@ -92,6 +92,9 @@ export default function Home() {
             >
               Generate Transaction
             </Button>
+            <p className="text-center">
+              made by cole gawin—saving YOU money, one niche function at a time
+            </p>
           </form>
         </main>
       </div>
