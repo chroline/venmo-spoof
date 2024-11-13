@@ -20,12 +20,16 @@ export default function Transaction({
   description: string;
   price: string;
 }) {
-  const [name, setName] = useState("");
-  const [avatarURL, setAvatarURL] = useState("");
+  const [name, setName] = useState<string>("");
+  const [avatarURL, setAvatarURL] = useState<string | null>("");
 
   useEffect(() => {
-    getName(username).then((v: string) => setName(v));
-    getAvatarURL(username).then((v: string) => setAvatarURL(v));
+    getName(username)
+      .then((v: string) => setName(v || username))
+      .catch((e) => setName(username));
+    getAvatarURL(username)
+      .then((v: string) => setAvatarURL(v))
+      .catch((e) => setAvatarURL(null));
   }, [username]);
 
   const currentDate = format(new Date(), "MMMM dd, yyyy, h:mm a");
