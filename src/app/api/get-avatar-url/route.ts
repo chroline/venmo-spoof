@@ -1,6 +1,8 @@
 import { fetchHtml } from "@/lib/data-fetching";
+import { getVenmoAvatarURL } from "@/lib/venmo-profile";
 import { NextResponse } from "next/server";
-import * as cheerio from "cheerio";
+
+export const runtime = "nodejs";
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
@@ -18,8 +20,7 @@ export async function GET(request: Request) {
       { status: 500 }
     );
 
-  const $ = cheerio.load(htmlText);
-  const avatarURL = $("img.MuiAvatar-img").attr("src") || null;
+  const avatarURL = getVenmoAvatarURL(htmlText);
 
   return NextResponse.json({ avatarURL });
 }

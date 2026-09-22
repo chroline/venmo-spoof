@@ -1,6 +1,8 @@
 import { fetchHtml } from "@/lib/data-fetching";
+import { getVenmoName } from "@/lib/venmo-profile";
 import { NextResponse } from "next/server";
-import * as cheerio from "cheerio";
+
+export const runtime = "nodejs";
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
@@ -18,8 +20,7 @@ export async function GET(request: Request) {
       { status: 500 }
     );
 
-  const $ = cheerio.load(htmlText);
-  const name = $("p[class^='profileInfo_username']").first().text() || null;
+  const name = getVenmoName(htmlText);
 
   return NextResponse.json({ name });
 }
